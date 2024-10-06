@@ -1,5 +1,10 @@
+import Prelude hiding ((<>))
 import Data.Generics
-import Language.Haskell.Exts.Annotated
+import Language.Haskell.Exts
+import Language.Haskell.Exts.Parser
+import Language.Haskell.Exts.SrcLoc
+import Language.Haskell.Exts.Syntax
+import Language.Haskell.Exts.Pretty
 import System.Environment
 import System.FilePath
 import Text.PrettyPrint
@@ -27,7 +32,7 @@ work fn contents =
 
              Module l mhead opt imports decls =
                fromParseResult $
-               parseFileContentsWithMode ourParseMode{parseFilename = fn'} contents
+               parseWithMode ourParseMode{parseFilename = fn'} contents
              mod'   = Module l mhead opt imports decls'
              mname  = case mhead of
                         Nothing -> ""
